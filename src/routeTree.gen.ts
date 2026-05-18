@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ResultsRouteImport } from './routes/results'
 import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as LoginRouteImport } from './routes/login'
@@ -21,6 +22,11 @@ import { Route as OnboardingRoleRouteImport } from './routes/onboarding.role'
 import { Route as OnboardingMethodRouteImport } from './routes/onboarding.method'
 import { Route as OnboardingChatRouteImport } from './routes/onboarding.chat'
 
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResultsRoute = ResultsRouteImport.update({
   id: '/results',
   path: '/results',
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/progress': typeof ProgressRoute
   '/results': typeof ResultsRoute
+  '/signup': typeof SignupRoute
   '/onboarding/chat': typeof OnboardingChatRoute
   '/onboarding/method': typeof OnboardingMethodRoute
   '/onboarding/role': typeof OnboardingRoleRoute
@@ -97,6 +104,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/progress': typeof ProgressRoute
   '/results': typeof ResultsRoute
+  '/signup': typeof SignupRoute
   '/onboarding/chat': typeof OnboardingChatRoute
   '/onboarding/method': typeof OnboardingMethodRoute
   '/onboarding/role': typeof OnboardingRoleRoute
@@ -111,6 +119,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/progress': typeof ProgressRoute
   '/results': typeof ResultsRoute
+  '/signup': typeof SignupRoute
   '/onboarding/chat': typeof OnboardingChatRoute
   '/onboarding/method': typeof OnboardingMethodRoute
   '/onboarding/role': typeof OnboardingRoleRoute
@@ -126,6 +135,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/progress'
     | '/results'
+    | '/signup'
     | '/onboarding/chat'
     | '/onboarding/method'
     | '/onboarding/role'
@@ -139,6 +149,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/progress'
     | '/results'
+    | '/signup'
     | '/onboarding/chat'
     | '/onboarding/method'
     | '/onboarding/role'
@@ -152,6 +163,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/progress'
     | '/results'
+    | '/signup'
     | '/onboarding/chat'
     | '/onboarding/method'
     | '/onboarding/role'
@@ -166,6 +178,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ProgressRoute: typeof ProgressRoute
   ResultsRoute: typeof ResultsRoute
+  SignupRoute: typeof SignupRoute
   OnboardingChatRoute: typeof OnboardingChatRoute
   OnboardingMethodRoute: typeof OnboardingMethodRoute
   OnboardingRoleRoute: typeof OnboardingRoleRoute
@@ -175,6 +188,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/results': {
       id: '/results'
       path: '/results'
@@ -262,6 +282,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   ProgressRoute: ProgressRoute,
   ResultsRoute: ResultsRoute,
+  SignupRoute: SignupRoute,
   OnboardingChatRoute: OnboardingChatRoute,
   OnboardingMethodRoute: OnboardingMethodRoute,
   OnboardingRoleRoute: OnboardingRoleRoute,
