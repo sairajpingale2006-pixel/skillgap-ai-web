@@ -4,6 +4,10 @@ import { ArrowRight, Sparkles, Brain, Target, Rocket, Zap, LineChart, ShieldChec
 import { Button } from "@/components/ui/button";
 import { MarketingNav } from "@/components/layout/MarketingNav";
 import { FloatingMatchCard } from "@/components/skillgap/FloatingMatchCard";
+import { lovable } from "@/integrations/lovable";
+import { useAuth } from "@/hooks/use-auth";
+import { useNavigate } from "@tanstack/react-router";
+import { toast } from "sonner";
 import {
   Accordion,
   AccordionContent,
@@ -37,6 +41,17 @@ function Index() {
 }
 
 function Hero() {
+  const { enableGuest } = useAuth();
+  const navigate = useNavigate();
+  async function googleSignIn() {
+    const res = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin + "/dashboard" });
+    if (res.error) toast.error(res.error.message ?? "Google sign-in failed");
+    else if (!res.redirected) navigate({ to: "/dashboard" });
+  }
+  function continueAsGuest() {
+    enableGuest();
+    navigate({ to: "/onboarding/role" });
+  }
   return (
     <section className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 grid-bg" />
@@ -59,10 +74,10 @@ function Hero() {
                 Start in 30 seconds <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-border/60 bg-secondary/40 backdrop-blur">
-              <Link to="/onboarding/role">Continue as guest</Link>
+            <Button onClick={continueAsGuest} size="lg" variant="outline" className="border-border/60 bg-secondary/40 backdrop-blur">
+              Continue as guest
             </Button>
-            <Button size="lg" variant="ghost" className="gap-2">
+            <Button onClick={googleSignIn} size="lg" variant="ghost" className="gap-2">
               <GoogleIcon /> Sign in with Google
             </Button>
           </div>
