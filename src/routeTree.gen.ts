@@ -9,38 +9,187 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ResultsRouteImport } from './routes/results'
+import { Route as ProgressRouteImport } from './routes/progress'
+import { Route as CoachRouteImport } from './routes/coach'
+import { Route as AnalyzingRouteImport } from './routes/analyzing'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OnboardingUploadRouteImport } from './routes/onboarding.upload'
+import { Route as OnboardingSkillsRouteImport } from './routes/onboarding.skills'
+import { Route as OnboardingRoleRouteImport } from './routes/onboarding.role'
+import { Route as OnboardingMethodRouteImport } from './routes/onboarding.method'
+import { Route as OnboardingChatRouteImport } from './routes/onboarding.chat'
 
+const ResultsRoute = ResultsRouteImport.update({
+  id: '/results',
+  path: '/results',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgressRoute = ProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoachRoute = CoachRouteImport.update({
+  id: '/coach',
+  path: '/coach',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalyzingRoute = AnalyzingRouteImport.update({
+  id: '/analyzing',
+  path: '/analyzing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnboardingUploadRoute = OnboardingUploadRouteImport.update({
+  id: '/onboarding/upload',
+  path: '/onboarding/upload',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingSkillsRoute = OnboardingSkillsRouteImport.update({
+  id: '/onboarding/skills',
+  path: '/onboarding/skills',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoleRoute = OnboardingRoleRouteImport.update({
+  id: '/onboarding/role',
+  path: '/onboarding/role',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingMethodRoute = OnboardingMethodRouteImport.update({
+  id: '/onboarding/method',
+  path: '/onboarding/method',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingChatRoute = OnboardingChatRouteImport.update({
+  id: '/onboarding/chat',
+  path: '/onboarding/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analyzing': typeof AnalyzingRoute
+  '/coach': typeof CoachRoute
+  '/progress': typeof ProgressRoute
+  '/results': typeof ResultsRoute
+  '/onboarding/chat': typeof OnboardingChatRoute
+  '/onboarding/method': typeof OnboardingMethodRoute
+  '/onboarding/role': typeof OnboardingRoleRoute
+  '/onboarding/skills': typeof OnboardingSkillsRoute
+  '/onboarding/upload': typeof OnboardingUploadRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analyzing': typeof AnalyzingRoute
+  '/coach': typeof CoachRoute
+  '/progress': typeof ProgressRoute
+  '/results': typeof ResultsRoute
+  '/onboarding/chat': typeof OnboardingChatRoute
+  '/onboarding/method': typeof OnboardingMethodRoute
+  '/onboarding/role': typeof OnboardingRoleRoute
+  '/onboarding/skills': typeof OnboardingSkillsRoute
+  '/onboarding/upload': typeof OnboardingUploadRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/analyzing': typeof AnalyzingRoute
+  '/coach': typeof CoachRoute
+  '/progress': typeof ProgressRoute
+  '/results': typeof ResultsRoute
+  '/onboarding/chat': typeof OnboardingChatRoute
+  '/onboarding/method': typeof OnboardingMethodRoute
+  '/onboarding/role': typeof OnboardingRoleRoute
+  '/onboarding/skills': typeof OnboardingSkillsRoute
+  '/onboarding/upload': typeof OnboardingUploadRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/analyzing'
+    | '/coach'
+    | '/progress'
+    | '/results'
+    | '/onboarding/chat'
+    | '/onboarding/method'
+    | '/onboarding/role'
+    | '/onboarding/skills'
+    | '/onboarding/upload'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/analyzing'
+    | '/coach'
+    | '/progress'
+    | '/results'
+    | '/onboarding/chat'
+    | '/onboarding/method'
+    | '/onboarding/role'
+    | '/onboarding/skills'
+    | '/onboarding/upload'
+  id:
+    | '__root__'
+    | '/'
+    | '/analyzing'
+    | '/coach'
+    | '/progress'
+    | '/results'
+    | '/onboarding/chat'
+    | '/onboarding/method'
+    | '/onboarding/role'
+    | '/onboarding/skills'
+    | '/onboarding/upload'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnalyzingRoute: typeof AnalyzingRoute
+  CoachRoute: typeof CoachRoute
+  ProgressRoute: typeof ProgressRoute
+  ResultsRoute: typeof ResultsRoute
+  OnboardingChatRoute: typeof OnboardingChatRoute
+  OnboardingMethodRoute: typeof OnboardingMethodRoute
+  OnboardingRoleRoute: typeof OnboardingRoleRoute
+  OnboardingSkillsRoute: typeof OnboardingSkillsRoute
+  OnboardingUploadRoute: typeof OnboardingUploadRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/results': {
+      id: '/results'
+      path: '/results'
+      fullPath: '/results'
+      preLoaderRoute: typeof ResultsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/progress': {
+      id: '/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof ProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/coach': {
+      id: '/coach'
+      path: '/coach'
+      fullPath: '/coach'
+      preLoaderRoute: typeof CoachRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analyzing': {
+      id: '/analyzing'
+      path: '/analyzing'
+      fullPath: '/analyzing'
+      preLoaderRoute: typeof AnalyzingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,12 +197,66 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/onboarding/upload': {
+      id: '/onboarding/upload'
+      path: '/onboarding/upload'
+      fullPath: '/onboarding/upload'
+      preLoaderRoute: typeof OnboardingUploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/skills': {
+      id: '/onboarding/skills'
+      path: '/onboarding/skills'
+      fullPath: '/onboarding/skills'
+      preLoaderRoute: typeof OnboardingSkillsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/role': {
+      id: '/onboarding/role'
+      path: '/onboarding/role'
+      fullPath: '/onboarding/role'
+      preLoaderRoute: typeof OnboardingRoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/method': {
+      id: '/onboarding/method'
+      path: '/onboarding/method'
+      fullPath: '/onboarding/method'
+      preLoaderRoute: typeof OnboardingMethodRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/chat': {
+      id: '/onboarding/chat'
+      path: '/onboarding/chat'
+      fullPath: '/onboarding/chat'
+      preLoaderRoute: typeof OnboardingChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnalyzingRoute: AnalyzingRoute,
+  CoachRoute: CoachRoute,
+  ProgressRoute: ProgressRoute,
+  ResultsRoute: ResultsRoute,
+  OnboardingChatRoute: OnboardingChatRoute,
+  OnboardingMethodRoute: OnboardingMethodRoute,
+  OnboardingRoleRoute: OnboardingRoleRoute,
+  OnboardingSkillsRoute: OnboardingSkillsRoute,
+  OnboardingUploadRoute: OnboardingUploadRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
