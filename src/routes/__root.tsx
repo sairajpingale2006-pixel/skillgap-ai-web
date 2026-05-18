@@ -81,10 +81,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Bridge your skill gap to your dream role with an AI-native career operating system." },
       { name: "author", content: "SkillGap" },
       { property: "og:title", content: "SkillGap — AI Career OS" },
-      { property: "og:description", content: "Bridge your skill gap to your dream role." },
+      { property: "og:description", content: "Bridge your skill gap to your dream role with an AI-native career operating system." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@skillgap" },
+      { name: "twitter:title", content: "SkillGap — AI Career OS" },
+      { name: "twitter:description", content: "Bridge your skill gap to your dream role with an AI-native career operating system." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/41c82ab0-023c-4372-aed1-88df63b020c8/id-preview-c6aa49b4--31e67332-6546-4241-8dc6-97bc25acb682.lovable.app-1779133298856.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/41c82ab0-023c-4372-aed1-88df63b020c8/id-preview-c6aa49b4--31e67332-6546-4241-8dc6-97bc25acb682.lovable.app-1779133298856.png" },
     ],
     links: [
       {
