@@ -257,4 +257,3 @@ function SectionHeader({ eyebrow, title, align = "left" }: { eyebrow: string; ti
     </div>
   );
 }
-}
