@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResultsRouteImport } from './routes/results'
 import { Route as ProgressRouteImport } from './routes/progress'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as CoachRouteImport } from './routes/coach'
 import { Route as AnalyzingRouteImport } from './routes/analyzing'
 import { Route as IndexRouteImport } from './routes/index'
@@ -28,6 +29,11 @@ const ResultsRoute = ResultsRouteImport.update({
 const ProgressRoute = ProgressRouteImport.update({
   id: '/progress',
   path: '/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoachRoute = CoachRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analyzing': typeof AnalyzingRoute
   '/coach': typeof CoachRoute
+  '/login': typeof LoginRoute
   '/progress': typeof ProgressRoute
   '/results': typeof ResultsRoute
   '/onboarding/chat': typeof OnboardingChatRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analyzing': typeof AnalyzingRoute
   '/coach': typeof CoachRoute
+  '/login': typeof LoginRoute
   '/progress': typeof ProgressRoute
   '/results': typeof ResultsRoute
   '/onboarding/chat': typeof OnboardingChatRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/analyzing': typeof AnalyzingRoute
   '/coach': typeof CoachRoute
+  '/login': typeof LoginRoute
   '/progress': typeof ProgressRoute
   '/results': typeof ResultsRoute
   '/onboarding/chat': typeof OnboardingChatRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/analyzing'
     | '/coach'
+    | '/login'
     | '/progress'
     | '/results'
     | '/onboarding/chat'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/analyzing'
     | '/coach'
+    | '/login'
     | '/progress'
     | '/results'
     | '/onboarding/chat'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/analyzing'
     | '/coach'
+    | '/login'
     | '/progress'
     | '/results'
     | '/onboarding/chat'
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnalyzingRoute: typeof AnalyzingRoute
   CoachRoute: typeof CoachRoute
+  LoginRoute: typeof LoginRoute
   ProgressRoute: typeof ProgressRoute
   ResultsRoute: typeof ResultsRoute
   OnboardingChatRoute: typeof OnboardingChatRoute
@@ -174,6 +187,13 @@ declare module '@tanstack/react-router' {
       path: '/progress'
       fullPath: '/progress'
       preLoaderRoute: typeof ProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/coach': {
@@ -239,6 +259,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyzingRoute: AnalyzingRoute,
   CoachRoute: CoachRoute,
+  LoginRoute: LoginRoute,
   ProgressRoute: ProgressRoute,
   ResultsRoute: ResultsRoute,
   OnboardingChatRoute: OnboardingChatRoute,
@@ -250,3 +271,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
