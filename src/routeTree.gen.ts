@@ -9,8 +9,12 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ResultsRouteImport } from './routes/results'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ProgressRouteImport } from './routes/progress'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CoachRouteImport } from './routes/coach'
 import { Route as AnalyzingRouteImport } from './routes/analyzing'
 import { Route as IndexRouteImport } from './routes/index'
@@ -20,14 +24,34 @@ import { Route as OnboardingRoleRouteImport } from './routes/onboarding.role'
 import { Route as OnboardingMethodRouteImport } from './routes/onboarding.method'
 import { Route as OnboardingChatRouteImport } from './routes/onboarding.chat'
 
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResultsRoute = ResultsRouteImport.update({
   id: '/results',
   path: '/results',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProgressRoute = ProgressRouteImport.update({
   id: '/progress',
   path: '/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoachRoute = CoachRouteImport.update({
@@ -75,8 +99,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analyzing': typeof AnalyzingRoute
   '/coach': typeof CoachRoute
+  '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/progress': typeof ProgressRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/results': typeof ResultsRoute
+  '/signup': typeof SignupRoute
   '/onboarding/chat': typeof OnboardingChatRoute
   '/onboarding/method': typeof OnboardingMethodRoute
   '/onboarding/role': typeof OnboardingRoleRoute
@@ -87,8 +115,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analyzing': typeof AnalyzingRoute
   '/coach': typeof CoachRoute
+  '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/progress': typeof ProgressRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/results': typeof ResultsRoute
+  '/signup': typeof SignupRoute
   '/onboarding/chat': typeof OnboardingChatRoute
   '/onboarding/method': typeof OnboardingMethodRoute
   '/onboarding/role': typeof OnboardingRoleRoute
@@ -100,8 +132,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/analyzing': typeof AnalyzingRoute
   '/coach': typeof CoachRoute
+  '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/progress': typeof ProgressRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/results': typeof ResultsRoute
+  '/signup': typeof SignupRoute
   '/onboarding/chat': typeof OnboardingChatRoute
   '/onboarding/method': typeof OnboardingMethodRoute
   '/onboarding/role': typeof OnboardingRoleRoute
@@ -114,8 +150,12 @@ export interface FileRouteTypes {
     | '/'
     | '/analyzing'
     | '/coach'
+    | '/dashboard'
+    | '/login'
     | '/progress'
+    | '/reset-password'
     | '/results'
+    | '/signup'
     | '/onboarding/chat'
     | '/onboarding/method'
     | '/onboarding/role'
@@ -126,8 +166,12 @@ export interface FileRouteTypes {
     | '/'
     | '/analyzing'
     | '/coach'
+    | '/dashboard'
+    | '/login'
     | '/progress'
+    | '/reset-password'
     | '/results'
+    | '/signup'
     | '/onboarding/chat'
     | '/onboarding/method'
     | '/onboarding/role'
@@ -138,8 +182,12 @@ export interface FileRouteTypes {
     | '/'
     | '/analyzing'
     | '/coach'
+    | '/dashboard'
+    | '/login'
     | '/progress'
+    | '/reset-password'
     | '/results'
+    | '/signup'
     | '/onboarding/chat'
     | '/onboarding/method'
     | '/onboarding/role'
@@ -151,8 +199,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnalyzingRoute: typeof AnalyzingRoute
   CoachRoute: typeof CoachRoute
+  DashboardRoute: typeof DashboardRoute
+  LoginRoute: typeof LoginRoute
   ProgressRoute: typeof ProgressRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   ResultsRoute: typeof ResultsRoute
+  SignupRoute: typeof SignupRoute
   OnboardingChatRoute: typeof OnboardingChatRoute
   OnboardingMethodRoute: typeof OnboardingMethodRoute
   OnboardingRoleRoute: typeof OnboardingRoleRoute
@@ -162,6 +214,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/results': {
       id: '/results'
       path: '/results'
@@ -169,11 +228,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResultsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/progress': {
       id: '/progress'
       path: '/progress'
       fullPath: '/progress'
       preLoaderRoute: typeof ProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/coach': {
@@ -239,8 +319,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyzingRoute: AnalyzingRoute,
   CoachRoute: CoachRoute,
+  DashboardRoute: DashboardRoute,
+  LoginRoute: LoginRoute,
   ProgressRoute: ProgressRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   ResultsRoute: ResultsRoute,
+  SignupRoute: SignupRoute,
   OnboardingChatRoute: OnboardingChatRoute,
   OnboardingMethodRoute: OnboardingMethodRoute,
   OnboardingRoleRoute: OnboardingRoleRoute,

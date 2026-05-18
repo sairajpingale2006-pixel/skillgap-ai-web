@@ -1,7 +1,12 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Brain, Search, Target, Sparkles, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useServerFn } from "@tanstack/react-start";
+import { useAuth } from "@/hooks/use-auth";
+import { runAnalysis, runAnalysisPublic } from "@/lib/analysis.functions";
+import { getState, setState } from "@/lib/skillgap-store";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/analyzing")({
   component: Analyzing,
@@ -17,17 +22,46 @@ const steps = [
 
 function Analyzing() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const callAuth = useServerFn(runAnalysis);
+  const callPublic = useServerFn(runAnalysisPublic);
   const [i, setI] = useState(0);
+  const ran = useRef(false);
+
   useEffect(() => {
-    const t = setInterval(() => setI((x) => x + 1), 900);
+    const t = setInterval(() => setI((x) => Math.min(x + 1, steps.length)), 700);
     return () => clearInterval(t);
   }, []);
+
   useEffect(() => {
-    if (i >= steps.length) {
-      const t = setTimeout(() => navigate({ to: "/results" }), 600);
-      return () => clearTimeout(t);
+    if (ran.current) return;
+    ran.current = true;
+    const s = getState();
+    if (!s.roleId || !s.skills.length) {
+      toast.error("Choose a role and at least one skill first.");
+      navigate({ to: "/onboarding/role" });
+      return;
     }
-  }, [i, navigate]);
+    (async () => {
+      try {
+        const fn = user ? callAuth : callPublic;
+        const res = await fn({ data: { roleId: s.roleId!, skills: s.skills } });
+        setState({
+          lastAnalysis: {
+            score: res.score,
+            matched: res.matched,
+            missing: res.missing,
+            totalRequired: res.totalRequired,
+            createdAt: new Date().toISOString(),
+          },
+        });
+        setTimeout(() => navigate({ to: "/results" }), 1200);
+      } catch (e: any) {
+        toast.error(e?.message ?? "Analysis failed");
+        navigate({ to: "/onboarding/skills" });
+      }
+    })();
+  }, [user, callAuth, callPublic, navigate]);
 
   return (
     <div className="grid min-h-screen place-items-center px-6">
@@ -48,14 +82,13 @@ function Analyzing() {
             return (
               <li key={s.label} className={cn(
                 "flex items-center gap-3 rounded-xl border px-4 py-3 transition-all",
-                active ? "border-primary/60 bg-card shadow-glow" : "border-border/60 bg-card/40",
-                done && "opacity-60",
+                active ? "border-primary/60 bg-card shadow-glow" : "border-border/40 bg-card/30",
               )}>
-                <div className={cn("flex h-8 w-8 items-center justify-center rounded-lg", done || active ? "bg-gradient-primary" : "bg-secondary")}>
-                  {done ? <Check className="h-4 w-4 text-primary-foreground" /> : <Icon className={cn("h-4 w-4", active ? "text-primary-foreground" : "text-muted-foreground")} />}
+                <div className={cn("flex h-8 w-8 items-center justify-center rounded-lg",
+                  done ? "bg-gradient-primary" : active ? "bg-secondary" : "bg-secondary/50")}>
+                  {done ? <Check className="h-4 w-4 text-primary-foreground" /> : <Icon className={cn("h-4 w-4", active ? "text-primary" : "text-muted-foreground")} />}
                 </div>
-                <span className="text-sm">{s.label}</span>
-                {active && <span className="ml-auto text-xs text-muted-foreground">working…</span>}
+                <span className={cn("text-sm", done ? "text-foreground" : active ? "text-foreground" : "text-muted-foreground")}>{s.label}</span>
               </li>
             );
           })}
