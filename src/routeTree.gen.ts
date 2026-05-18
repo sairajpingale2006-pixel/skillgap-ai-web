@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ResultsRouteImport } from './routes/results'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as CoachRouteImport } from './routes/coach'
@@ -30,6 +31,11 @@ const SignupRoute = SignupRouteImport.update({
 const ResultsRoute = ResultsRouteImport.update({
   id: '/results',
   path: '/results',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProgressRoute = ProgressRouteImport.update({
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/coach': typeof CoachRoute
   '/login': typeof LoginRoute
   '/progress': typeof ProgressRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/results': typeof ResultsRoute
   '/signup': typeof SignupRoute
   '/onboarding/chat': typeof OnboardingChatRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/coach': typeof CoachRoute
   '/login': typeof LoginRoute
   '/progress': typeof ProgressRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/results': typeof ResultsRoute
   '/signup': typeof SignupRoute
   '/onboarding/chat': typeof OnboardingChatRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/coach': typeof CoachRoute
   '/login': typeof LoginRoute
   '/progress': typeof ProgressRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/results': typeof ResultsRoute
   '/signup': typeof SignupRoute
   '/onboarding/chat': typeof OnboardingChatRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/coach'
     | '/login'
     | '/progress'
+    | '/reset-password'
     | '/results'
     | '/signup'
     | '/onboarding/chat'
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
     | '/coach'
     | '/login'
     | '/progress'
+    | '/reset-password'
     | '/results'
     | '/signup'
     | '/onboarding/chat'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/coach'
     | '/login'
     | '/progress'
+    | '/reset-password'
     | '/results'
     | '/signup'
     | '/onboarding/chat'
@@ -177,6 +189,7 @@ export interface RootRouteChildren {
   CoachRoute: typeof CoachRoute
   LoginRoute: typeof LoginRoute
   ProgressRoute: typeof ProgressRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   ResultsRoute: typeof ResultsRoute
   SignupRoute: typeof SignupRoute
   OnboardingChatRoute: typeof OnboardingChatRoute
@@ -200,6 +213,13 @@ declare module '@tanstack/react-router' {
       path: '/results'
       fullPath: '/results'
       preLoaderRoute: typeof ResultsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/progress': {
@@ -281,6 +301,7 @@ const rootRouteChildren: RootRouteChildren = {
   CoachRoute: CoachRoute,
   LoginRoute: LoginRoute,
   ProgressRoute: ProgressRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   ResultsRoute: ResultsRoute,
   SignupRoute: SignupRoute,
   OnboardingChatRoute: OnboardingChatRoute,
