@@ -19,11 +19,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isGuest, setIsGuest] = useState<boolean>(() =>
-    typeof window !== "undefined" && localStorage.getItem(GUEST_KEY) === "1",
-  );
+  const [isGuest, setIsGuest] = useState<boolean>(false);
 
   useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem(GUEST_KEY) === "1") {
+      setIsGuest(true);
+    }
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, s) => {
       setSession(s);
       setUser(s?.user ?? null);
