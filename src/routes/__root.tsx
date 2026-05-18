@@ -72,14 +72,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "SkillGap — AI Career OS" },
+      { name: "description", content: "Bridge your skill gap to your dream role with an AI-native career operating system." },
+      { name: "author", content: "SkillGap" },
+      { property: "og:title", content: "SkillGap — AI Career OS" },
+      { property: "og:description", content: "Bridge your skill gap to your dream role." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@skillgap" },
     ],
     links: [
       {
