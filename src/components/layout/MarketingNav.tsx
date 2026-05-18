@@ -20,9 +20,11 @@ export function MarketingNav() {
           <a href="#faq" className="hover:text-foreground">FAQ</a>
         </nav>
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="sm" className="hidden md:inline-flex">Sign in</Button>
+          <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex">
+            <Link to="/login">Sign in</Link>
+          </Button>
           <Button asChild size="sm" className="bg-gradient-primary text-primary-foreground shadow-glow hover:opacity-90">
-            <Link to="/onboarding/role">Get started</Link>
+            <Link to="/signup">Get started</Link>
           </Button>
         </div>
       </div>
