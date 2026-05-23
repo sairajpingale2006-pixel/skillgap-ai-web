@@ -29,7 +29,7 @@ function Index() {
   return (
     <div className="relative min-h-screen">
       <MarketingNav />
-      <Hero />
+      {/* <Hero /> */}
       <Logos />
       <Features />
       <Stats />
