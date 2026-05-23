@@ -1,5 +1,5 @@
 import { createStart, createMiddleware } from "@tanstack/react-start";
-
+import { getRouter } from "./router";
 import { renderErrorPage } from "./lib/error-page";
 import { attachSupabaseAuth } from "@/integrations/supabase/auth-attacher";
 
@@ -21,5 +21,5 @@ const errorMiddleware = createMiddleware().server(async ({ next }) => {
 export const startInstance = createStart(() => ({
   requestMiddleware: [errorMiddleware],
   functionMiddleware: [attachSupabaseAuth],
-  getRouter: () => import("./router").then((m) => m.getRouter()),
+  getRouter,
 }));
